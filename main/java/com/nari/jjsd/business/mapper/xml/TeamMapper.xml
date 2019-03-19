@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.TeamMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.business.model.Team">
+        <id column="T_ID" property="tId" />
+        <result column="T_NAME" property="tName" />
+        <result column="T_LEAD" property="tLead" />
+        <result column="T_LEAD_ID" property="tLeadId" />
+        <result column="REMARKS" property="remarks" />
+        <result column="CREATEDBY_ID" property="createdbyId" />
+        <result column="CREATEDBY_NAME" property="createdbyName" />
+        <result column="CREATED_AT" property="createdAt" />
+        <result column="UPDATEDBY_ID" property="updatedbyId" />
+        <result column="UPDATEDBY_NAME" property="updatedbyName" />
+        <result column="UPDATED_AT" property="updatedAt" />
+        <result column="DELETED_FLAG" property="deletedFlag" />
+        <result column="DELETEDBY_ID" property="deletedbyId" />
+        <result column="DELETEDBY_NAME" property="deletedbyName" />
+        <result column="DELETED_AT" property="deletedAt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        T_ID, T_NAME, T_LEAD, T_LEAD_ID, REMARKS, CREATEDBY_ID, CREATEDBY_NAME, CREATED_AT, UPDATEDBY_ID, UPDATEDBY_NAME, UPDATED_AT, DELETED_FLAG, DELETEDBY_ID, DELETEDBY_NAME, DELETED_AT
+    </sql>
+
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.BusinessfileMapper">
+
+    <!-- 开启二级缓存
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.business.model.Businessfile">
+        <id column="BF_ID" property="bfId" />
+        <result column="BF_NAME" property="bfName" />
+        <result column="BF_TYPE" property="bfType" />
+        <result column="AUTHOR_ID" property="authorId" />
+        <result column="AUTHOR_NAME" property="authorName" />
+        <result column="UPLOAD_TIME" property="uploadTime" />
+        <result column="REMARKS" property="remarks" />
+        <result column="CREATEDBY_ID" property="createdbyId" />
+        <result column="CREATEDBY_NAME" property="createdbyName" />
+        <result column="CREATED_AT" property="createdAt" />
+        <result column="UPDATEDBY_ID" property="updatedbyId" />
+        <result column="UPDATEDBY_NAME" property="updatedbyName" />
+        <result column="UPDATED_AT" property="updatedAt" />
+        <result column="DELETED_FLAG" property="deletedFlag" />
+        <result column="DELETEDBY_ID" property="deletedbyId" />
+        <result column="DELETEDBY_NAME" property="deletedbyName" />
+        <result column="DELETED_AT" property="deletedAt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        BF_ID, BF_NAME, BF_TYPE, AUTHOR_ID, AUTHOR_NAME, UPLOAD_TIME, REMARKS, CREATEDBY_ID, CREATEDBY_NAME, CREATED_AT, UPDATEDBY_ID, UPDATEDBY_NAME, UPDATED_AT, DELETED_FLAG, DELETEDBY_ID, DELETEDBY_NAME, DELETED_AT
+    </sql>
+
+    <sql id="querybusinessfile">
+        <if test="bfId != null and bfId!=''">
+            and  BF_ID=#{bfId,jdbcType=VARCHAR}
+        </if>
+        <if test="bfName != null and bfName!='' ">
+            and  BF_NAME=#{bfName,jdbcType=VARCHAR}
+        </if>
+        <if test="bfType != null and bfType!='' ">
+            and  BF_TYPE=#{bfType,jdbcType=VARCHAR}
+        </if>
+        <if test="authorId != null and authorId!='' ">
+            and  AUTHOR_ID=#{authorId,jdbcType=VARCHAR}
+        </if>
+
+        <if test="authorName != null and authorName!=''">
+            and  AUTHOR_NAME=#{authorName,jdbcType=VARCHAR}
+        </if>
+        <if test="uploadTime != null and uploadTime!=''">
+            and  UPLOAD_TIME=#{uploadTime,jdbcType=VARCHAR}
+        </if>
+         <if test="remarks != null and remarks!=''">
+            and  REMARKS=#{remarks,jdbcType=VARCHAR}
+        </if>
+    </sql>
+
+    <!-- 用户查询 -->
+    <select id="selectBusinessfilecPage" resultMap="BaseResultMap" >
+        select
+        p.bf_id,
+        p.bf_name,
+        p.bf_type,
+        (select  typename  from t_s_type t where typegroupid='8a10e4b557f5554f0157f583a5e00001' and t.typecode=p.bf_type) type,
+
+        p.author_id ,
+        p.AUTHOR_NAME,
+        p.UPLOAD_TIME ,
+        p.REMARKS
+        from p_b_businessfile p
+        <where>
+            <include refid="querybusinessfile"/>
+        </where>
+    </select>
+
+</mapper>

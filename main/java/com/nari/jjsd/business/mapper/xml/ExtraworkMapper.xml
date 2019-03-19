@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.ExtraworkMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.business.model.Extrawork">
+        <id column="EW_ID" property="ewId" />
+        <result column="AUSER_ID" property="auserId" />
+        <result column="APPLY_TYPE" property="applyType" />
+        <result column="EW_TYPE" property="ewType" />
+        <result column="EW_CONTENT" property="ewContent" />
+        <result column="INTOHOUR" property="intohour" />
+        <result column="ACONTENT" property="acontent" />
+        <result column="START_TIME" property="startTime" />
+        <result column="END_TIME" property="endTime" />
+        <result column="HOURS" property="hours" />
+        <result column="WF_ID" property="wfId" />
+        <result column="CREATEDBY_ID" property="createdbyId" />
+        <result column="CREATEDBY_NAME" property="createdbyName" />
+        <result column="CREATED_AT" property="createdAt" />
+        <result column="UPDATEDBY_ID" property="updatedbyId" />
+        <result column="UPDATEDBY_NAME" property="updatedbyName" />
+        <result column="UPDATED_AT" property="updatedAt" />
+        <result column="DELETED_FLAG" property="deletedFlag" />
+        <result column="DELETEDBY_ID" property="deletedbyId" />
+        <result column="DELETEDBY_NAME" property="deletedbyName" />
+        <result column="DELETED_AT" property="deletedAt" />
+        <result column="TEMP_FLAG" property="tempFlag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        EW_ID, AUSER_ID, APPLY_TYPE, EW_TYPE, EW_CONTENT, INTOHOUR, ACONTENT, START_TIME, END_TIME, HOURS, WF_ID, CREATEDBY_ID, CREATEDBY_NAME, CREATED_AT, UPDATEDBY_ID, UPDATEDBY_NAME, UPDATED_AT, DELETED_FLAG, DELETEDBY_ID, DELETEDBY_NAME, DELETED_AT, TEMP_FLAG
+    </sql>
+
+</mapper>

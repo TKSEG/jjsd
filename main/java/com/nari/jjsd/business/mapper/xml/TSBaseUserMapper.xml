@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.TSBaseUserMapper">
+
+    <!-- 开启二级缓存
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+-->
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.business.model.TSBaseUser">
+        <id column="ID" property="id" />
+        <result column="activitiSync" property="activitiSync" />
+        <result column="browser" property="browser" />
+        <result column="password" property="password" />
+        <result column="realname" property="realname" />
+        <result column="signature" property="signature" />
+        <result column="status" property="status" />
+        <result column="userkey" property="userkey" />
+        <result column="username" property="username" />
+        <result column="teamid" property="teamid" />
+        <result column="departid" property="departid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, activitiSync, browser, password, realname, signature, status, userkey, username, teamid, departid
+    </sql>
+
+    <!-- 供货商药品目录查询条件 -->
+    <sql id="query_user_where">
+        <if test="systemUserCustom!=null">
+            <if test="systemUserCustom.username !=null and systemUserCustom.username!=''">
+                and t_s_base_user.username = #{systemUserCustom.username}
+            </if>
+            <if test="systemUserCustom.realname !=null and systemUserCustom.realname!=''">
+                and t_s_base_user.realname = #{systemUserCustom.realname}
+            </if>
+            <if test="systemUserCustom.id !=null and systemUserCustom.id!=''">
+                and t_s_base_user.id = #{systemUserCustom.id}
+            </if>
+        </if>
+
+    </sql>
+
+
+
+    <select id="queryIduserName" resultMap="BaseResultMap">
+            SELECT
+            id,
+            username
+            FROM
+            t_s_base_user
+            WHERE
+            EXISTS (
+            SELECT 1 FROM t_s_role_user XA, t_s_role xb WHERE XA .roleid = xb.id AND XA .userid = t_s_base_user.id AND xb.rolecode IN ('tlead', 'head')
+            )
+    </select>
+
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.TSRoleMapper">
+
+    <!-- 开启二级缓存
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+-->
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.business.model.TSRole">
+        <id column="ID" property="id"/>
+        <result column="rolecode" property="rolecode"/>
+        <result column="rolename" property="rolename"/>
+        <result column="update_name" property="updateName"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="create_name" property="createName"/>
+        <result column="create_date" property="createDate"/>
+        <result column="create_by" property="createBy"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, rolecode, rolename, update_name, update_date, update_by, create_name, create_date, create_by
+    </sql>
+
+
+    <select id="selectrolename" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        t_s_role.id as id,
+        t_s_role.rolename as rolename,
+        t_s_role_user.userid as userid
+        FROM
+        t_s_role,
+        t_s_role_user,
+        t_s_user
+        WHERE
+        t_s_role.id = t_s_role_user.roleid
+        AND t_s_user.id = t_s_role_user.userid
+        and t_s_role_user.userid=#{id}
+        ORDER BY
+        userid DESC
+    </select>
+</mapper>

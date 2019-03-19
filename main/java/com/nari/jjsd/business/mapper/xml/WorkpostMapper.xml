@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.WorkpostMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.business.model.Work">
+        <id column="WP_ID" property="wpId" />
+        <result column="WP_CODE" property="wpCode" />
+        <result column="WP_NAME" property="wpName" />
+        <result column="LEVE1_ID" property="leve1Id" />
+        <result column="LEVE1_SCORE" property="leve1Score" />
+        <result column="LEVE2_ID" property="leve2Id" />
+        <result column="LEVE2_SCORE" property="leve2Score" />
+        <result column="LEVE3_ID" property="leve3Id" />
+        <result column="LEVE3_SCORE" property="leve3Score" />
+        <result column="LEVE4_ID" property="leve4Id" />
+        <result column="LEVE4_SCORE" property="leve4Score" />
+        <result column="LEVE5_ID" property="leve5Id" />
+        <result column="LEVE5_SCORE" property="leve5Score" />
+        <result column="LEVE6_ID" property="leve6Id" />
+        <result column="LEVE6_SCORE" property="leve6Score" />
+        <result column="REMARKS" property="remarks" />
+        <result column="CREATEDBY_ID" property="createdbyId" />
+        <result column="CREATEDBY_NAME" property="createdbyName" />
+        <result column="CREATED_AT" property="createdAt" />
+        <result column="UPDATEDBY_ID" property="updatedbyId" />
+        <result column="UPDATEDBY_NAME" property="updatedbyName" />
+        <result column="UPDATED_AT" property="updatedAt" />
+        <result column="DELETED_FLAG" property="deletedFlag" />
+        <result column="DELETEDBY_ID" property="deletedbyId" />
+        <result column="DELETEDBY_NAME" property="deletedbyName" />
+        <result column="DELETED_AT" property="deletedAt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        WP_ID, WP_CODE, WP_NAME, LEVE1_ID, LEVE1_SCORE, LEVE2_ID, LEVE2_SCORE, LEVE3_ID, LEVE3_SCORE, LEVE4_ID, LEVE4_SCORE, LEVE5_ID, LEVE5_SCORE, LEVE6_ID, LEVE6_SCORE, REMARKS, CREATEDBY_ID, CREATEDBY_NAME, CREATED_AT, UPDATEDBY_ID, UPDATEDBY_NAME, UPDATED_AT, DELETED_FLAG, DELETEDBY_ID, DELETEDBY_NAME, DELETED_AT
+    </sql>
+
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.WorkflowMapper">
+
+    <!-- 开启二级缓存
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+-->
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.business.model.Workflow">
+        <id column="WF_ID" property="wfId" />
+        <result column="WF_NAME" property="wfName" />
+        <result column="TYPE_CODE" property="typeCode" />
+        <result column="OBJ_ID" property="objId" />
+        <result column="WF_STATUS" property="wfStatus" />
+        <result column="APPLYU_ID" property="applyuId" />
+        <result column="APPLY_TIME" property="applyTime" />
+        <result column="APPROVEU_ID" property="approveuId" />
+        <result column="APPROVE_TIME" property="approveTime" />
+        <result column="APPROVE_RESULT" property="approveResult" />
+        <result column="APPROVE_DES" property="approveDes" />
+        <result column="HLAPPROVE" property="hlapprove" />
+        <result column="HLAPPLYU_ID" property="hlapplyuId" />
+        <result column="HLAPPLYU_TIME" property="hlapplyuTime" />
+        <result column="PAPPROVEU_ID" property="papproveuId" />
+        <result column="PAPPROVE_TIME" property="papproveTime" />
+        <result column="PAPPROVE_RESULT" property="papproveResult" />
+        <result column="PAPPROVE_DES" property="papproveDes" />
+        <result column="CREATEDBY_ID" property="createdbyId" />
+        <result column="CREATEDBY_NAME" property="createdbyName" />
+        <result column="CREATED_AT" property="createdAt" />
+        <result column="UPDATEDBY_ID" property="updatedbyId" />
+        <result column="UPDATEDBY_NAME" property="updatedbyName" />
+        <result column="UPDATED_AT" property="updatedAt" />
+        <result column="DELETED_FLAG" property="deletedFlag" />
+        <result column="DELETEDBY_ID" property="deletedbyId" />
+        <result column="DELETEDBY_NAME" property="deletedbyName" />
+        <result column="DELETED_AT" property="deletedAt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        WF_ID, WF_NAME, TYPE_CODE, OBJ_ID, WF_STATUS, APPLYU_ID, APPLY_TIME, APPROVEU_ID, APPROVE_TIME, APPROVE_RESULT, APPROVE_DES, HLAPPROVE, HLAPPLYU_ID, HLAPPLYU_TIME, PAPPROVEU_ID, PAPPROVE_TIME, PAPPROVE_RESULT, PAPPROVE_DES, CREATEDBY_ID, CREATEDBY_NAME, CREATED_AT, UPDATEDBY_ID, UPDATEDBY_NAME, UPDATED_AT, DELETED_FLAG, DELETEDBY_ID, DELETEDBY_NAME, DELETED_AT
+    </sql>
+    <sql id="queryworkflow">
+        <if test="wfId != null and wfId!=''">
+            and  WF_ID=#{wfId,jdbcType=VARCHAR}
+        </if>
+        <if test="typeCode != null and typeCode!='' ">
+            and  TYPE_CODE=#{typeCode,jdbcType=VARCHAR}
+        </if>
+        <if test="objId != null and objId!='' ">
+            and  OBJ_ID=#{objId,jdbcType=VARCHAR}
+        </if>
+        <if test="wfStatus != null and wfStatus!='' ">
+           and  WF_STATUS=#{wfStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="applyuId != null and applyuId!='' ">
+           and  APPLYU_ID=#{applyuId,jdbcType=VARCHAR}
+        </if>
+
+
+    </sql>
+
+
+    <select id="queryObjId" parameterType="java.lang.String" resultType="java.lang.String">
+        select
+        WF_ID
+        from
+        Workflow
+        where
+        <if test="objId != null and objId!='' ">
+              OBJ_ID=#{objId,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+
+
+</mapper>

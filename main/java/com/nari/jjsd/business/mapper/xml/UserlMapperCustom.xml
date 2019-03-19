@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.UserlMapperCustom">
+
+    <!-- 供货商药品目录查询条件 -->
+    <sql id="query_user_where">
+        <if test="baseuser!=null">
+            <if test="baseuser.username !=null and baseuser.username!=''">
+                and t_s_base_user.username = #{baseuser.username}
+            </if>
+            <if test="baseuser.realname !=null and baseuser.realname!=''">
+                and t_s_base_user.realname = #{baseuser.realname}
+            </if>
+            <if test="baseuser.id !=null and baseuser.id!=''">
+                and t_s_base_user.id = #{baseuser.id}
+            </if>
+        </if>
+
+    </sql>
+
+
+    <select id="getList" resultType="com.nari.jjsd.business.model.task.vo.SystemUserCustom"
+            parameterType="com.nari.jjsd.business.model.task.vo.SystemUserQueryVo">
+        SELECT
+        t_s_user.id as id ,
+        username,
+        realname,
+        teamid,
+        create_name,
+        create_date,
+        create_by,
+        mobilePhone,
+        email,
+        remarks
+        FROM
+        t_s_base_user,
+        t_s_user
+        WHERE
+        t_s_base_user.ID = t_s_user.id
+        <include refid="query_user_where"></include>
+    </select>
+
+    <select id="getUserid" resultType="com.nari.jjsd.business.model.task.vo.SystemUserCustom" parameterType="String">
+        SELECT
+        t_s_user.id as id ,
+        username,
+        realname,
+        teamid,
+        create_name,
+        create_date,
+        create_by,
+        mobilePhone,
+        email,
+        remarks
+        FROM
+        t_s_base_user,
+        t_s_user
+        WHERE
+        t_s_base_user.ID = t_s_user.id
+        and t_s_base_user.id = #{id}
+
+  </select>
+    <!--
+        <select id="getList" resultType="com.nari.jjsd.business.model.task.vo.SystemUserCustom" parameterType="com.nari.jjsd.business.model.task.vo.SystemUserQueryVo" >
+            SELECT
+            b.id id,
+            b.username username,
+            b.realname realname,
+            b.teamid teamid,
+            u.create_name createName,
+            u.create_date createDate,
+            u.create_by createBy,
+            u.mobilePhone mobilePhone,
+            u.email email,
+            u.remarks remarks
+            FROM
+            t_s_base_user b,
+            t_s_user u
+            WHERE
+            b.ID = u.id
+            <include refid="query_user_where"></include>
+        </select>
+    <-->
+
+
+
+</mapper>

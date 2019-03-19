@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.ProjectMapper">
+
+    <!-- 开启二级缓存
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+-->
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.business.model.Project">
+        <id column="PJ_ID" property="pjId" />
+        <result column="PJ_NO" property="pjNo" />
+        <result column="PJ_NAME" property="pjName" />
+        <result column="PJ_STATUS" property="pjStatus" />
+        <result column="CUR_PS_ID" property="curPsId" />
+        <result column="FUNCTIONARY" property="functionary" />
+        <result column="SUMMARY" property="summary" />
+        <result column="START_TIME" property="startTime" />
+        <result column="END_TIME" property="endTime" />
+        <result column="REMARKS" property="remarks" />
+        <result column="CREATEDBY_ID" property="createdbyId" />
+        <result column="CREATEDBY_NAME" property="createdbyName" />
+        <result column="CREATED_AT" property="createdAt" />
+        <result column="UPDATEDBY_ID" property="updatedbyId" />
+        <result column="UPDATEDBY_NAME" property="updatedbyName" />
+        <result column="UPDATED_AT" property="updatedAt" />
+        <result column="DELETED_FLAG" property="deletedFlag" />
+        <result column="DELETEDBY_ID" property="deletedbyId" />
+        <result column="DELETEDBY_NAME" property="deletedbyName" />
+        <result column="DELETED_AT" property="deletedAt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        PJ_ID, PJ_NO, PJ_NAME, PJ_STATUS, CUR_PS_ID, FUNCTIONARY, SUMMARY, START_TIME, END_TIME, REMARKS, CREATEDBY_ID, CREATEDBY_NAME, CREATED_AT, UPDATEDBY_ID, UPDATEDBY_NAME, UPDATED_AT, DELETED_FLAG, DELETEDBY_ID, DELETEDBY_NAME, DELETED_AT
+    </sql>
+
+
+
+    <sql id="queryproject">
+        <if test="pjName != null and pjName!=''">
+          and  pj_Name=#{pjName,jdbcType=VARCHAR}
+        </if>
+        <if test="pjStatus != null and pjStatus!='' ">
+            and  PJ_STATUS=#{pjStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="curPsId != null and curPsId!='' ">
+            and  CUR_PS_ID=#{curPsId,jdbcType=VARCHAR}
+        </if>
+        <!-->
+        <if test="startTime != null ">
+            and  START_TIME=#{startTime,jdbcType=VARCHAR}
+        </if>
+        <if test="endTime != null ">
+            and  END_TIME=#{endTime,jdbcType=VARCHAR}
+        </if>
+        <-->
+    </sql>
+
+    <!-- 用户查询 -->
+    <select id="selectProjecPage" resultMap="BaseResultMap" >
+            select
+            p.pj_id,
+            p.pj_no,
+            p.pj_name,
+            (select  typename  from t_s_type t where typegroupid='4028b8815707ab5101570863aea50006' and t.typecode=p.PJ_STATUS) status,
+            (select  typename  from t_s_type t where typegroupid='4028b8815707ab510157086967910010' and t.typecode=p.cur_Ps_Id) cur,
+            p.functionary,
+            p.summary,
+            p.start_time,
+            p.end_time,
+            p.remarks
+            from p_project p
+
+        <where>
+           <include refid="queryproject"/>
+        </where>
+
+
+     </select>
+</mapper>

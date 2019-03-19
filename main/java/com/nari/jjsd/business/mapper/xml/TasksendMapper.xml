@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.business.mapper.TasksendMapper">
+
+    <!-- 开启二级缓存
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    -->
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.business.model.Tasksend">
+        <id column="TS_ID" property="tsId"/>
+        <result column="TASK_ID" property="taskId"/>
+        <result column="PLAN_TIME" property="planTime"/>
+        <result column="STANDARD" property="standard"/>
+        <result column="DUTYU_ID" property="dutyuId"/>
+        <result column="FSTATUS" property="fstatus"/>
+        <result column="TSSTATUS" property="tsstatus"/>
+        <result column="WF_ID" property="wfId"/>
+        <result column="BFSCORE" property="bfscore"/>
+        <result column="SRC_FLAG" property="srcFlag"/>
+        <result column="CREATEDBY_ID" property="createdbyId"/>
+        <result column="CREATEDBY_NAME" property="createdbyName"/>
+        <result column="CREATED_AT" property="createdAt"/>
+        <result column="UPDATEDBY_ID" property="updatedbyId"/>
+        <result column="UPDATEDBY_NAME" property="updatedbyName"/>
+        <result column="UPDATED_AT" property="updatedAt"/>
+        <result column="DELETED_FLAG" property="deletedFlag"/>
+        <result column="DELETEDBY_ID" property="deletedbyId"/>
+        <result column="DELETEDBY_NAME" property="deletedbyName"/>
+        <result column="DELETED_AT" property="deletedAt"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        TS_ID, TASK_ID, PLAN_TIME, STANDARD, DUTYU_ID, FSTATUS, TSSTATUS, WF_ID, BFSCORE, SRC_FLAG, CREATEDBY_ID, CREATEDBY_NAME, CREATED_AT, UPDATEDBY_ID, UPDATEDBY_NAME, UPDATED_AT, DELETED_FLAG, DELETEDBY_ID, DELETEDBY_NAME, DELETED_AT
+    </sql>
+
+    <sql id="inquiretasksend">
+        <if test="tsId != null and tsId!=''">
+            and TS_ID=#{tsId,jdbcType=VARCHAR}
+        </if>
+        <if test="taskId != null and taskId!='' ">
+            and TASK_ID=#{taskId,jdbcType=VARCHAR}
+        </if>
+        <!-->
+        <if test="planTime != null and planTime!='' ">
+            and PLAN_TIME=#{planTime,jdbcType=VARCHAR}
+        </if>
+        <-->
+        <if test="standard != null and standard!=''">
+            and STANDARD=#{standard,jdbcType=VARCHAR}
+        </if>
+        <if test="dutyuId != null and dutyuId!='' ">
+            and DUTYU_ID=#{dutyuId,jdbcType=VARCHAR}
+        </if>
+        <if test="fstatus != null and fstatus!='' ">
+            and FSTATUS=#{fstatus,jdbcType=VARCHAR}
+        </if>
+        <if test="tsstatus != null and tsstatus!=''">
+            and TSSTATUS=#{tsstatus,jdbcType=VARCHAR}
+        </if>
+        <if test="wfId != null and wfId!='' ">
+            and WF_ID=#{wfId,jdbcType=VARCHAR}
+        </if>
+        <if test="bfscore != null and bfscore!='' ">
+            and BFSCORE=#{bfscore,jdbcType=VARCHAR}
+        </if>
+        <if test="srcFlag != null and srcFlag!=''">
+            and SRC_FLAG=#{srcFlag,jdbcType=VARCHAR}
+        </if>
+
+    </sql>
+
+
+    <select id="querytasksendList" resultMap="BaseResultMap" >
+          SELECT
+        p.TS_ID ,
+        p.TASK_ID ,
+        p.WF_ID ,
+        p.BFSCORE,
+        t.BPNC_ID bpncId,
+        t.TASK_NAME taskName,
+        t.LEVEL_CODE levelCode,
+        p.PLAN_TIME ,
+        p.STANDARD ,
+        p.DUTYU_ID
+        FROM
+        p_tasksend p,p_b_task t
+        where t.TASK_ID=p.TASK_ID and t.SEND_FLAG='y' and ts_id is not null
+    </select>
+
+    <select id="querytasksend" resultMap="BaseResultMap" >
+        SELECT
+        p.TS_ID ,
+        p.TASK_ID ,
+        p.WF_ID ,
+        p.BFSCORE,
+        t.BPNC_ID bpncId,
+        t.TASK_NAME taskName,
+        t.LEVEL_CODE levelCode,
+        p.PLAN_TIME ,
+        p.STANDARD ,
+        p.DUTYU_ID
+        FROM
+        p_tasksend p,p_b_task t
+        where t.TASK_ID=p.TASK_ID and t.SEND_FLAG='y' and ts_id is not null
+        and p.ts_id=#{tsId,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="querytasksendtaskid" resultMap="BaseResultMap" >
+        SELECT
+        p.TS_ID ,
+        p.TASK_ID ,
+        p.WF_ID ,
+        p.BFSCORE,
+        t.BPNC_ID bpncId,
+        t.TASK_NAME taskName,
+        t.LEVEL_CODE levelCode,
+        p.PLAN_TIME ,
+        p.STANDARD ,
+        p.DUTYU_ID
+        FROM
+        p_tasksend p,p_b_task t
+        where t.TASK_ID=p.TASK_ID and t.SEND_FLAG='y' and ts_id is not null
+        and p.TASK_ID=#{taskId,jdbcType=VARCHAR}
+    </select>
+
+    <!--
+    <select id="querytasksend" resultType="com.nari.jjsd.business.model.Tasksend" >
+        SELECT
+        p.TS_ID ,
+        p.TASK_ID ,
+        p.WF_ID ,
+        p.BFSCORE,
+        t.BPNC_ID bpncId,
+        t.TASK_NAME taskName,
+        t.LEVEL_CODE levelCode,
+        p.PLAN_TIME ,
+        p.STANDARD ,
+        p.DUTYU_ID
+        FROM
+        p_tasksend p,p_b_task t
+        where t.TASK_ID=p.TASK_ID and t.SEND_FLAG='y' and ts_id is not null
+
+        <if test="tsId != null and tsId!=''">
+            and p.TS_ID=#{tsId,jdbcType=VARCHAR}
+        </if>
+        <if test="taskId != null and taskId!='' ">
+            and p.TASK_ID=#{taskId,jdbcType=VARCHAR}
+        </if>
+
+
+
+    </select>
+-->
+
+</mapper>

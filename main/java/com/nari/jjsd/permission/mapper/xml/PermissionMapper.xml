@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nari.jjsd.permission.mapper.PermissionMapper">
+
+    <!-- 开启二级缓存
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+-->
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nari.jjsd.permission.model.Permission">
+        <id column="id" property="id" />
+        <result column="url" property="url" />
+        <result column="name" property="name" />
+        <result column="parent_id" property="parentId" />
+        <collection property="children" column="id" select="com.nari.jjsd.permission.mapper.PermissionMapper.getChildrenPermission" ofType="com.nari.jjsd.permission.model.Permission" >
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, url, name, parent_id
+    </sql>
+
+    <!-- 根据用ID查询permission -->
+    <select id="findPermissionByUserId" resultType="java.lang.String">
+        select p.url from permission p , role_permission rp, user_role ur
+        where uid =#{id,jdbcType=BIGINT} and p.id = rp.pid and rp.rid = ur.rid
+    </select>
+
+    <!--查询顶级权限-->
+    <select id="getPermissionTree" resultMap="BaseResultMap">
+        SELECT * FROM permission p WHERE p.parent_id IS NULL;
+    </select>
+
+    <!--查询子权限-->
+    <select id="getChildrenPermission" resultMap="BaseResultMap">
+        SELECT * FROM permission p WHERE p.parent_id = #{id};
+    </select>
+
+    <select id="findPermissionByRoleId" resultType="java.lang.String">
+        SELECT
+        p.id
+        FROM
+        permission p
+        LEFT JOIN role_permission rp ON(p.id = rp.pid)
+        WHERE
+        rp.rid = #{id}
+    </select>
+
+    <select id="getParentIdByMenuParentId" resultType="long">
+        SELECT
+        m.permission_id
+        FROM
+        menu m
+        WHERE
+        m.id = #{menuParentId}
+    </select>
+</mapper>
